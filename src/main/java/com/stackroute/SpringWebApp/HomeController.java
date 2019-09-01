@@ -2,6 +2,8 @@ package com.stackroute.SpringWebApp;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,16 +12,13 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     @RequestMapping("home")
-    public String home(HttpServletRequest req){
+    public ModelAndView home(@RequestParam("name") String myName){
 
-        HttpSession session = req.getSession();
+        ModelAndView mv = new ModelAndView();
 
-        String name = req.getParameter("name");
+        mv.addObject("name", myName);
+        mv.setViewName("home");
 
-        System.out.println("Hi!"+name);
-
-        session.setAttribute("name", name);
-
-        return "home";
+        return mv;
     }
 }
